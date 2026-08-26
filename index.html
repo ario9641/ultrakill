@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Web Battle Royale & Aim Trainer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using a secure, modern stable version of Three.js via CDN -->
+    <script src="https://cloudflare.com"></script>
+</head>
+<body>
+    <!-- The 3D Rendering Window -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- CROSSHAIR (Visible only during gameplay) -->
+    <div id="crosshair" class="hidden"></div>
+
+    <!-- MAIN MENU LOBBY OVERLAY -->
+    <div id="mainMenu">
+        <div id="lobbyHeader">
+            <h1>WEB FORTNITE ALTERNATIVE</h1>
+            <div id="coinDisplay">Coins: <span id="coinCount">0</span> 🪙</div>
+        </div>
+
+        <!-- Mode Selection Panel -->
+        <div id="modeSelector">
+            <h3>SELECT GAME MODE</h3>
+            <button class="mode-btn active" onclick="selectMode('trainer')">🎯 Aim Trainer (Bots & Dummies)</button>
+            <button class="mode-btn" onclick="selectMode('freebuild')">🏗️ Freebuild (Random Snow/Grass)</button>
+            <button class="mode-btn" onclick="selectMode('1v1')">⚔️ 1v1 Arena (Sweaty Bot)</button>
+        </div>
+
+        <!-- Skin Selection Locker -->
+        <div id="lockerPanel">
+            <h3>SKIN LOCKER</h3>
+            <div class="skin-grid">
+                <div class="skin-card owned active" onclick="selectSkin('default', 0)">
+                    <div class="skin-preview standard"></div>
+                    <p>Default Agent</p>
+                    <span>[OWNED]</span>
+                </div>
+                <div class="skin-card" id="skin-neon" onclick="buySkin('neon', 20)">
+                    <div class="skin-preview neon"></div>
+                    <p>Neon Commando</p>
+                    <span class="price-tag">20 Coins</span>
+                </div>
+                <div class="skin-card" id="skin-shadow" onclick="buySkin('shadow', 20)">
+                    <div class="skin-preview shadow"></div>
+                    <p>Shadow Elite</p>
+                    <span class="price-tag">20 Coins</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal/Panel -->
+        <div id="settingsPanel">
+            <h3>KEYBIND SETTINGS</h3>
+            <div class="setting-row"><span>Forward:</span><input type="text" id="bind-forward" value="W" maxlength="1" onchange="updateBinds()"></div>
+            <div class="setting-row"><span>Left:</span><input type="text" id="bind-left" value="A" maxlength="1" onchange="updateBinds()"></div>
+            <div class="setting-row"><span>Backward:</span><input type="text" id="bind-backward" value="S" maxlength="1" onchange="updateBinds()"></div>
+            <div class="setting-row"><span>Right:</span><input type="text" id="bind-right" value="D" maxlength="1" onchange="updateBinds()"></div>
+            <div class="setting-row"><span>Build Wall:</span><input type="text" id="bind-wall" value="Q" maxlength="1" onchange="updateBinds()"></div>
+            <div class="setting-row"><span>Build Ramp:</span><input type="text" id="bind-ramp" value="E" maxlength="1" onchange="updateBinds()"></div>
+        </div>
+
+        <!-- Play Trigger Button -->
+        <button id="playButton" onclick="startGame()">MATCHMAKING / START GAME</button>
+    </div>
+
+    <!-- HUD OVERLAY (Visible only inside an active match) -->
+    <div id="gameHUD" class="hidden">
+        <div id="hudModeInfo">Mode: <span id="hudModeText">Trainer</span></div>
+        <div id="hudObjective">Eliminate targets!</div>
+        <button id="exitButton" onclick="exitToLobby()">Return to Lobby</button>
+    </div>
+
+    <!-- Core Game Controller script connection -->
+    <script src="game.js"></script>
+</body>
+</html>
